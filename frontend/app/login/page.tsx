@@ -2,24 +2,93 @@
 
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import { useAuthStore } from "@/store/auth-store";
 
-import { signInWithGoogle } from "@/services/auth";
+import {
+    signInWithGoogle,
+    signupWithEmail,
+    loginWithEmail,
+} from "@/services/auth"; import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
 
     const [isSignup, setIsSignup] = useState(false);
 
     const [role, setRole] = useState<"user" | "broker">("user");
+    const router = useRouter();
+    const setUser = useAuthStore((state) => state.setUser);
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleGoogleAuth = async () => {
         try {
             const user = await signInWithGoogle();
+            setUser(user);
 
-            console.log("Authenticated User:", user);
+            router.push("/dashboard");
 
         } catch (error) {
             console.error(error);
         }
+    };
+    const handleEmailAuth = async () => {
+        try {
+            setLoading(true);
+
+            if (!email || !password) {
+                toast.error("Email and password are required.");
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                toast.error("Enter a valid email address.");
+                return;
+            }
+
+            if (password.length < 6) {
+                toast.error("Password must be at least 6 characters.");
+                return;
+            }
+
+            if (isSignup && name.trim().length < 3) {
+                toast.error("Full name must be at least 3 characters.");
+                return;
+            }
+
+            if (isSignup) {
+
+                const user = await signupWithEmail(email, password);
+                setUser(user);                
+
+            } else {
+
+                const user = await loginWithEmail(email, password);
+                setUser(user);
+            }
+
+            toast.success(
+                isSignup
+                    ? "Account created successfully!"
+                    : "Login successful!"
+            );
+
+            router.push("/dashboard");
+
+        } catch (error) {
+            
+            console.error(error);
+            toast.error("Authentication failed. Please try again.");
+        }
+        finally {
+    setLoading(false);
+}
     };
 
     return (
@@ -37,21 +106,28 @@ export default function LoginPage() {
                     }}
                 />
 
-                <div className="relative z-10 flex flex-col justify-center px-16">
+                <div className="relative z-10 flex flex-col justify-between px-16 py-10">
 
-                    <div className="max-w-xl">
+                    <Link
+                        href="/"
+                        className="text-2xl font-bold tracking-tight text-white"
+                    >
+                        RealStateQ AI
+                    </Link>
 
-                        <h1 className="text-5xl font-bold leading-tight">
+                    <div className="flex max-w-xl flex-1 flex-col justify-center">
+
+                        <h1 className="text-6xl font-bold leading-[1.05] tracking-tight">
                             Smarter Real Estate Decisions with AI
                         </h1>
 
-                        <p className="mt-6 text-lg text-muted-foreground">
+                        <p className="mt-8 max-w-lg text-lg leading-8 text-muted-foreground">
                             Analyze properties, predict investment opportunities,
                             explore market intelligence, and connect with verified brokers
                             using RealStateQ AI.
                         </p>
 
-                        <div className="mt-12 space-y-6">
+                        <div className="mt-14 space-y-8">
 
                             <div className="flex items-start gap-4">
                                 <div className="mt-1 h-2 w-2 rounded-full bg-indigo-400" />
@@ -104,8 +180,8 @@ export default function LoginPage() {
                         <button
                             onClick={() => setIsSignup(false)}
                             className={`flex-1 rounded-xl py-2 text-sm font-medium transition ${!isSignup
-                                    ? "bg-foreground text-background"
-                                    : "text-muted-foreground"
+                                ? "bg-foreground text-background"
+                                : "text-muted-foreground"
                                 }`}
                         >
                             Login
@@ -114,8 +190,8 @@ export default function LoginPage() {
                         <button
                             onClick={() => setIsSignup(true)}
                             className={`flex-1 rounded-xl py-2 text-sm font-medium transition ${isSignup
-                                    ? "bg-foreground text-background"
-                                    : "text-muted-foreground"
+                                ? "bg-foreground text-background"
+                                : "text-muted-foreground"
                                 }`}
                         >
                             Sign Up
@@ -129,8 +205,8 @@ export default function LoginPage() {
                         <button
                             onClick={() => setRole("user")}
                             className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${role === "user"
-                                    ? "bg-foreground text-background"
-                                    : "border border-white/10 bg-card text-muted-foreground"
+                                ? "bg-foreground text-background"
+                                : "border border-white/10 bg-card text-muted-foreground"
                                 }`}
                         >
                             User / Investor
@@ -139,8 +215,8 @@ export default function LoginPage() {
                         <button
                             onClick={() => setRole("broker")}
                             className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${role === "broker"
-                                    ? "bg-foreground text-background"
-                                    : "border border-white/10 bg-card text-muted-foreground"
+                                ? "bg-foreground text-background"
+                                : "border border-white/10 bg-card text-muted-foreground"
                                 }`}
                         >
                             Broker
@@ -170,6 +246,8 @@ export default function LoginPage() {
                             <input
                                 type="text"
                                 placeholder="Full Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
                             />
                         )}
@@ -177,19 +255,29 @@ export default function LoginPage() {
                         <input
                             type="email"
                             placeholder="Email Address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
                         />
 
                         <input
                             type="password"
                             placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
                         />
 
                         <button
+                            disabled={loading}
+                            onClick={handleEmailAuth}
                             className="w-full rounded-2xl bg-foreground py-3 text-sm font-medium text-background transition hover:opacity-90"
                         >
-                            {isSignup ? "Create Account" : "Login"}
+                            {loading
+                                ? "Please wait..."
+                                : isSignup
+                                    ? "Create Account"
+                                    : "Login"}
                         </button>
 
                     </div>
