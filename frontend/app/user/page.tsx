@@ -1,38 +1,20 @@
 "use client";
 
-import { logoutUser } from "@/services/auth";
-import { useRouter } from "next/navigation";
 import { RoleProtectedRoute } from "@/components/auth/role-protected-route";
+import { DashboardLayout } from "@/components/dashboard/dashboard-layout";
+import { StatsCards } from "@/components/dashboard/stats-cards";
+
 export default function UserDashboard() {
-
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await logoutUser();
-    router.push("/login");
-  };
 
   return (
     <RoleProtectedRoute allowedRole="user">
 
-      <main className="p-8">
+      <DashboardLayout role="user">
 
-        <div className="flex items-center justify-between">
+        {/* cards */}
+        <StatsCards />
 
-          <h1 className="text-4xl font-bold">
-            User Dashboard
-          </h1>
-
-          <button
-            onClick={handleLogout}
-            className="rounded-xl bg-red-500 px-4 py-2 text-white"
-          >
-            Logout
-          </button>
-
-        </div>
-
-      </main>
+      </DashboardLayout>
 
     </RoleProtectedRoute>
   );
