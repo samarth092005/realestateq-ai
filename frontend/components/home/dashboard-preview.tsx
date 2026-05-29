@@ -1,14 +1,17 @@
 export function DashboardPreview() {
     return (
-        <section className="mx-auto max-w-7xl px-6 pb-28">
+        <section
+  id="dashboard-preview"
+  className="mx-auto max-w-[1400px] px-8 pb-32"
+>
 
             <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
 
                 {/* Top Bar */}
-                <div className="flex items-center justify-between border-b border-border px-6 py-4">
+                <div className="flex items-center justify-between border-b border-border px-8 py-6">
 
                     <div>
-                        <h2 className="text-lg font-semibold">
+                        <h2 className="text-2xl font-semibold">
                             Market Intelligence Dashboard
                         </h2>
 
@@ -24,7 +27,7 @@ export function DashboardPreview() {
                 </div>
 
                 {/* Dashboard Content */}
-                <div className="grid gap-6 p-6 lg:grid-cols-3">
+                <div className="grid gap-8 p-8 lg:grid-cols-3">
 
                     {/* Left Analytics */}
                     <div className="space-y-6 lg:col-span-2">
@@ -42,7 +45,7 @@ export function DashboardPreview() {
                                 </span>
                             </div>
 
-                            <div className="flex h-64 items-end gap-3">
+                            <div className="flex h-80 items-end gap-4">
 
                                 <div className="h-[35%] w-full rounded-t-xl bg-muted"></div>
                                 <div className="h-[45%] w-full rounded-t-xl bg-muted"></div>
@@ -63,7 +66,7 @@ export function DashboardPreview() {
                                     AI Predicted Growth
                                 </p>
 
-                                <h3 className="mt-3 text-3xl font-bold">
+                                <h3 className="mt-3 text-4xl font-bold">
                                     +18.4%
                                 </h3>
 
@@ -97,21 +100,21 @@ export function DashboardPreview() {
                             AI Insights
                         </h3>
 
-                        <div className="mt-6 space-y-4">
+                        <div className="mt-6 space-y-6">
 
-                            <div className="rounded-2xl bg-muted p-4">
+                            <div className="rounded-2xl bg-muted p-5">
                                 <p className="text-sm">
                                     Baner shows strong investment growth due to rising demand and infrastructure expansion.
                                 </p>
                             </div>
 
-                            <div className="rounded-2xl bg-muted p-4">
+                            <div className="rounded-2xl bg-muted p-5">
                                 <p className="text-sm">
                                     3BHK premium properties are outperforming market averages this quarter.
                                 </p>
                             </div>
 
-                            <div className="rounded-2xl bg-muted p-4">
+                            <div className="rounded-2xl bg-muted p-5">
                                 <p className="text-sm">
                                     AI model predicts continued appreciation in high-connectivity zones.
                                 </p>

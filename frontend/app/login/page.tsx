@@ -7,10 +7,12 @@ import Link from "next/link";
 import { useAuthStore } from "@/store/auth-store";
 
 import {
-    signInWithGoogle,
-    signupWithEmail,
-    loginWithEmail,
-} from "@/services/auth"; import { useRouter } from "next/navigation";
+  signupWithEmail,
+  loginWithEmail,
+  signInWithGoogle,
+  getUserRole,
+} from "@/services/auth";
+ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
 
@@ -62,24 +64,48 @@ export default function LoginPage() {
                 return;
             }
 
-            if (isSignup) {
+if (isSignup) {
 
-                const user = await signupWithEmail(email, password);
-                setUser(user);                
+    const user = await signupWithEmail(
+        name,
+        email,
+        password,
+        role
+    );
 
-            } else {
+    setUser(user);
 
-                const user = await loginWithEmail(email, password);
-                setUser(user);
+    if (role === "broker") {
+        router.push("/broker");
+        return;
+    }
+
+    router.push("/user");
+    return;
+
+} else {
+
+    const user = await loginWithEmail(
+        email,
+        password
+    );
+
+    setUser(user);
+
+    const userRole = await getUserRole(user.uid);
+
+    if (userRole === "broker") {
+        router.push("/broker");
+        return;
+    }
+
+    router.push("/user");
+    return;
+
             }
 
-            toast.success(
-                isSignup
-                    ? "Account created successfully!"
-                    : "Login successful!"
-            );
+        
 
-            router.push("/dashboard");
 
         } catch (error) {
             
@@ -252,21 +278,21 @@ export default function LoginPage() {
                             />
                         )}
 
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
-                        />
+<input
+  type="email"
+  placeholder="Email Address"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="..."
+/>
 
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
-                        />
+<input
+  type="password"
+  placeholder="Password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  className="..."
+/>
 
                         <button
                             disabled={loading}

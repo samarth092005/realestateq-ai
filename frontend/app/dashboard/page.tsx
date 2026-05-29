@@ -1,16 +1,44 @@
+import { Sidebar } from "@/components/dashboard/sidebar";
+import { Topbar } from "@/components/dashboard/topbar";
+import { StatsCards } from "@/components/dashboard/stats-cards";
+import { InsightsPanel } from "@/components/dashboard/insights-panel";
+
 export default function DashboardPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
+    <main className="flex min-h-screen bg-background text-foreground">
 
-      <div className="text-center">
+      {/* SIDEBAR */}
+      <Sidebar />
 
-        <h1 className="text-5xl font-bold">
-          Dashboard
-        </h1>
+      {/* MAIN CONTENT */}
+      <div className="flex flex-1 flex-col">
 
-        <p className="mt-4 text-muted-foreground">
-          Welcome to RealStateQ AI
-        </p>
+        {/* TOPBAR */}
+        <Topbar />
+
+        {/* DASHBOARD CONTENT */}
+        <div className="flex-1 space-y-8 p-8">
+
+          {/* PAGE HEADER */}
+          <div>
+
+            <h1 className="text-4xl font-bold tracking-tight">
+              Dashboard
+            </h1>
+
+            <p className="mt-2 text-muted-foreground">
+              Welcome back to RealStateQ AI analytics platform.
+            </p>
+
+          </div>
+
+          {/* ANALYTICS CARDS */}
+          <StatsCards />
+
+          {/* AI INSIGHTS */}
+          <InsightsPanel />
+
+        </div>
 
       </div>
 
