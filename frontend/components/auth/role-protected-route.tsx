@@ -28,6 +28,11 @@ export function RoleProtectedRoute({
 
       const role = await getUserRole(user.uid);
 
+      if (role === "pending_onboarding") {
+        router.push("/onboarding");
+        return;
+      }
+
       if (role !== allowedRole) {
 
         if (role === "broker") {

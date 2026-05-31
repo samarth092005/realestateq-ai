@@ -269,30 +269,45 @@ if (isSignup) {
                     <div className="space-y-4">
 
                         {isSignup && (
-                            <input
-                                type="text"
-                                placeholder="Full Name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
-                            />
+                            <div>
+                                <label htmlFor="auth-name" className="sr-only">Full Name</label>
+                                <input
+                                    id="auth-name"
+                                    type="text"
+                                    placeholder="Full Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    autoComplete="name"
+                                    className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
+                                />
+                            </div>
                         )}
 
-<input
-  type="email"
-  placeholder="Email Address"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  className="..."
-/>
+                        <div>
+                            <label htmlFor="auth-email" className="sr-only">Email Address</label>
+                            <input
+                                id="auth-email"
+                                type="email"
+                                placeholder="Email Address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                autoComplete="email"
+                                className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
+                            />
+                        </div>
 
-<input
-  type="password"
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="..."
-/>
+                        <div>
+                            <label htmlFor="auth-password" className="sr-only">Password</label>
+                            <input
+                                id="auth-password"
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete={isSignup ? "new-password" : "current-password"}
+                                className="w-full rounded-2xl border border-white/10 bg-background px-4 py-3 text-sm outline-none transition focus:border-white/20"
+                            />
+                        </div>
 
                         <button
                             disabled={loading}

@@ -83,13 +83,6 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: oklch(0.96 0.01 240);
-    --foreground: oklch(0.20 0.02 240);
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);

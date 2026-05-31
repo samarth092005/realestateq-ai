@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   role: "user" | "broker";
@@ -7,22 +10,26 @@ interface SidebarProps {
 export function Sidebar({
   role,
 }: SidebarProps) {
+  const pathname = usePathname();
 
   const links =
     role === "broker"
       ? [
-          "Dashboard",
-          "Listings",
-          "Leads",
-          "Analytics",
-          "Profile",
+          { name: "Dashboard", href: "/broker" },
+          { name: "My Properties", href: "/broker/my-properties" },
+          { name: "Add Property", href: "/broker/add-property" },
+          { name: "Browse Properties", href: "/properties" },
+          { name: "Compare", href: "/compare" },
+          { name: "AI Lab", href: "/ai-lab" },
+          { name: "Profile", href: "/broker/profile" },
         ]
       : [
-          "Dashboard",
-          "Properties",
-          "Saved",
-          "Insights",
-          "Profile",
+          { name: "Dashboard", href: "/user" },
+          { name: "Browse Properties", href: "/properties" },
+          { name: "Saved", href: "/saved-properties" },
+          { name: "Compare", href: "/compare" },
+          { name: "AI Lab", href: "/ai-lab" },
+          { name: "Profile", href: "/user/profile" },
         ];
 
   return (
@@ -33,7 +40,7 @@ export function Sidebar({
 
         <Link
           href="/"
-          className="text-2xl font-bold tracking-tight"
+          className="text-2xl font-bold tracking-tight text-white hover:opacity-90"
         >
           RealStateQ AI
         </Link>
@@ -43,20 +50,22 @@ export function Sidebar({
       {/* NAVIGATION */}
       <nav className="flex flex-1 flex-col gap-2 p-6">
 
-        {links.map((link, index) => (
-
-          <button
-            key={link}
-            className={`rounded-2xl px-5 py-3 text-left text-sm font-medium transition ${
-              index === 0
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:bg-muted"
-            }`}
-          >
-            {link}
-          </button>
-
-        ))}
+        {links.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`rounded-2xl px-5 py-3 text-left text-sm font-medium transition ${
+                isActive
+                  ? "bg-foreground text-background font-semibold"
+                  : "text-muted-foreground hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </Link>
+          );
+        })}
 
       </nav>
 

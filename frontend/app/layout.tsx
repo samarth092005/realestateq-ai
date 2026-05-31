@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Toaster } from "react-hot-toast";
+import { FloatingCompareBar } from "@/components/compare/floating-compare-bar";
 
 export const metadata: Metadata = {
   title: "RealStateQ AI",
@@ -21,6 +22,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Toaster position="top-right" />
           {children}
+          <FloatingCompareBar />
         </ThemeProvider>
       </body>
     </html>

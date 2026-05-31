@@ -7,6 +7,7 @@ import { CTASection } from "@/components/home/cta-section";
 import { Footer } from "@/components/layout/footer";
 import Image from "next/image";
 import { FeaturedProperties } from "@/components/home/featured-properties";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -34,13 +35,19 @@ export default function Home() {
           </p>
 
           <div className="mt-10 flex items-center gap-4">
-            <button className="rounded-2xl bg-foreground px-8 py-4 text-sm font-medium text-background transition hover:opacity-90">
-              Explore Platform
-            </button>
+            <Link
+               href="/properties"
+              className="rounded-2xl bg-foreground px-8 py-4 text-sm font-medium text-background transition hover:opacity-90"
+            >
+              Explore Properties
+            </Link>
 
-            <button className="rounded-2xl border border-border px-8 py-4 text-sm font-medium transition hover:bg-muted">
-              View Analytics
-            </button>
+            <Link
+              href="/login"
+              className="rounded-2xl border border-border px-8 py-4 text-sm font-medium transition hover:bg-muted"
+            >
+              Get Started
+            </Link>
           </div>
 
         </div>
@@ -49,7 +56,7 @@ export default function Home() {
         <div className="relative flex justify-center">
 
           <Image
-            src="/images/property-hero copy.jpg"
+            src="/images/property-hero-copy.jpg"
             alt="Property Hero"
             width={900}
             height={600}

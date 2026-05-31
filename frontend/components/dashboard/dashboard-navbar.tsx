@@ -2,13 +2,16 @@
 
 import { logoutUser } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import { Menu } from "lucide-react";
 
 interface DashboardNavbarProps {
     role: "user" | "broker";
+    onMenuClick?: () => void;
 }
 
 export function DashboardNavbar({
     role,
+    onMenuClick,
 }: DashboardNavbarProps) {
 
     const router = useRouter();
@@ -22,17 +25,26 @@ export function DashboardNavbar({
         <header className="flex h-20 items-center justify-between border-b border-white/10 px-8">
 
             {/* LEFT */}
-            <div>
+            <div className="flex items-center gap-4">
+                <button
+                    onClick={onMenuClick}
+                    className="rounded-xl border border-white/10 bg-card p-2 text-white lg:hidden hover:bg-white/10 transition cursor-pointer"
+                    aria-label="Open navigation menu"
+                >
+                    <Menu className="h-5 w-5" />
+                </button>
 
-                <h1 className="text-2xl font-bold">
-                    {role === "broker"
-                        ? "Broker Dashboard"
-                        : "User Dashboard"}
-                </h1>
+                <div>
+                    <h1 className="text-xl sm:text-2xl font-bold leading-tight">
+                        {role === "broker"
+                            ? "Broker Dashboard"
+                            : "User Dashboard"}
+                    </h1>
 
-                <p className="text-sm text-muted-foreground">
-                    Welcome back to RealStateQ AI
-                </p>
+                    <p className="hidden sm:block text-xs text-muted-foreground">
+                        Welcome back to RealStateQ AI
+                    </p>
+                </div>
 
             </div>
 

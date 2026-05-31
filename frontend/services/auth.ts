@@ -21,6 +21,19 @@ export async function signInWithGoogle() {
     try {
         const result = await signInWithPopup(auth, provider);
 
+        const userRef = doc(db, "users", result.user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+            await setDoc(userRef, {
+                uid: result.user.uid,
+                name: result.user.displayName || "Google User",
+                email: result.user.email || "",
+                role: "pending_onboarding",
+                createdAt: new Date().toISOString(),
+            });
+        }
+
         return result.user;
 
     } catch (error) {
@@ -87,6 +100,18 @@ export async function getUserRole(uid: string) {
 
     if (userSnap.exists()) {
         return userSnap.data().role;
+    }
+
+    return null;
+}
+
+export async function getUserProfile(uid: string) {
+    const userRef = doc(db, "users", uid);
+
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        return userSnap.data();
     }
 
     return null;

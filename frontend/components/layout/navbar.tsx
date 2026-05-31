@@ -4,12 +4,16 @@ import Link from "next/link";
 
 import { useAuthStore } from "@/store/auth-store";
 import { logoutUser } from "@/services/auth";
+import { useEffect } from "react";
+import { initFirestoreMetadata } from "@/services/seed";
 
 export function Navbar() {
-
     const user = useAuthStore((state) => state.user);
-
     const logout = useAuthStore((state) => state.logout);
+
+    useEffect(() => {
+        initFirestoreMetadata();
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -60,14 +64,14 @@ export function Navbar() {
 
                             <Link
                                 href="/login"
-                                className="rounded-2xl border border-white/10 bg-card/80 px-5 py-2 text-sm font-medium backdrop-blur-sm transition hover:border-white/20 hover:bg-muted"
+                                className="rounded-2xl border border-white/10 bg-card/40 px-5 py-2 text-sm font-medium backdrop-blur-sm transition hover:border-white/20 hover:bg-muted"
                             >
                                 Login
                             </Link>
 
                             <Link
                                 href="/login"
-                                className="rounded-2xl border border-white/10 bg-card/80 px-5 py-2 text-sm font-medium backdrop-blur-sm transition hover:border-white/20 hover:bg-muted"
+                                className="rounded-2xl bg-foreground px-5 py-2 text-sm font-medium text-background transition hover:opacity-90 active:scale-95"
                             >
                                 Get started
                             </Link>
