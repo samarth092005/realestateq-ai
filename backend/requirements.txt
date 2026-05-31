@@ -1,0 +1,14 @@
+fastapi==0.136.1
+uvicorn==0.46.0
+pandas
+numpy
+scikit-learn
+scipy
+joblib
+xgboost
+pydantic
+python-multipart
+python-dotenv
+firebase-admin
+google-cloud-firestore
+google-cloud-storage
