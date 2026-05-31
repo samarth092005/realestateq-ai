@@ -276,7 +276,7 @@ export default function BrokerDashboard() {
                             </span>
                           </div>
 
-                          <div className="rounded-xl bg-white/[0.02] border border-white/5 p-3 space-y-1">
+                          <div className="rounded-xl bg-white/2 border border-white/5 p-3 space-y-1">
                             <p className="text-[10px] text-muted-foreground">Regarding Listing:</p>
                             <Link href={`/property/${lead.propertyId}`} className="text-xs text-emerald-400 font-semibold hover:underline block truncate">
                               {lead.propertyTitle}

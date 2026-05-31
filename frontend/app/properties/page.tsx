@@ -345,8 +345,8 @@ export default function PropertiesPage() {
                                     Residential
                                 </span>
                                 <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
-  Ready To Move
-</span>
+                                    Ready To Move
+                                </span>
 
                             </div>
 
