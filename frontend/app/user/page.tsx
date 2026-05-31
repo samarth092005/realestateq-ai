@@ -290,7 +290,7 @@ export default function UserDashboard() {
               {/* 1. RECOMMENDED PROPERTIES SECTION */}
               <section className="rounded-[32px] border border-white/10 bg-card/60 p-8 backdrop-blur-xl space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
                     ✨ Recommended For You
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
@@ -333,12 +333,12 @@ export default function UserDashboard() {
                           <div className="flex-1 p-5 flex flex-col justify-between space-y-3">
                             <div>
                               <div className="flex justify-between items-start">
-                                <Link href={`/property/${rec.id}`} className="text-lg font-bold text-white hover:text-blue-400 transition line-clamp-1">
+                                <Link href={`/property/${rec.id}`} className="text-lg font-bold text-foreground hover:text-blue-400 transition line-clamp-1">
                                   {rec.title}
                                 </Link>
                                 <button
                                   onClick={(e) => handleSaveToggle(e, rec.id)}
-                                  className="text-white hover:scale-110 transition ml-2 shrink-0 text-sm"
+                                  className="text-foreground dark:text-white hover:scale-110 transition ml-2 shrink-0 text-sm"
                                 >
                                   {isSaved ? "❤️" : "🤍"}
                                 </button>
@@ -355,17 +355,17 @@ export default function UserDashboard() {
                               </div>
                             </div>
 
-                            <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                              <span className="text-lg font-bold text-white">
+                            <div className="flex items-center justify-between pt-2 border-t border-border">
+                              <span className="text-lg font-bold text-foreground">
                                 ₹ {rec.price?.toLocaleString()}
                               </span>
                               <div className="flex items-center gap-3">
-                                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                                <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
                                   ⭐ Score {invScore}
                                 </span>
                                 <Link
                                   href={`/property/${rec.id}`}
-                                  className="text-xs text-white hover:underline font-semibold"
+                                  className="text-xs text-foreground hover:underline font-semibold"
                                 >
                                   Details →
                                 </Link>
@@ -380,10 +380,10 @@ export default function UserDashboard() {
               </section>
 
               {/* 2. SAVED PROPERTIES SUMMARY */}
-              <section className="rounded-[32px] border border-white/10 bg-card/60 p-8 backdrop-blur-xl space-y-6">
+              <section className="rounded-[32px] border border-border bg-card p-8 shadow-sm space-y-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                    <h3 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
                       ❤️ Saved Listings Summary
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -427,14 +427,14 @@ export default function UserDashboard() {
 
                           <div className="p-4 flex-1 flex flex-col justify-between">
                             <div>
-                              <Link href={`/property/${prop.id}`} className="text-sm font-semibold text-white hover:text-blue-400 transition line-clamp-1">
+                              <Link href={`/property/${prop.id}`} className="text-sm font-semibold text-foreground hover:text-blue-400 transition line-clamp-1">
                                 {prop.title}
                               </Link>
                               <p className="text-[10px] text-muted-foreground truncate">📍 {prop.location}</p>
                             </div>
                             
-                            <div className="pt-2 border-t border-white/5 flex items-center justify-between">
-                              <span className="text-xs font-bold text-white">₹ {prop.price?.toLocaleString()}</span>
+                            <div className="pt-2 border-t border-border flex items-center justify-between">
+                              <span className="text-xs font-bold text-foreground">₹ {prop.price?.toLocaleString()}</span>
                               <span className="rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-400">
                                 ⭐ {score}
                               </span>
@@ -448,9 +448,9 @@ export default function UserDashboard() {
               </section>
 
               {/* 3. RECENT ACTIVITY TIMELINE */}
-              <section className="rounded-[32px] border border-white/10 bg-card/60 p-8 backdrop-blur-xl space-y-6">
+              <section className="rounded-[32px] border border-border bg-card p-8 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
                     ⏱️ Recent Activity
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
@@ -458,7 +458,7 @@ export default function UserDashboard() {
                   </p>
                 </div>
 
-                <div className="relative pl-6 border-l border-white/10 space-y-6">
+                <div className="relative pl-6 border-l border-border space-y-6">
                   {activities.length === 0 ? (
                     <div className="text-center py-6 text-sm text-muted-foreground pl-0 border-l-0">
                       No recent activities logged on this profile yet.
@@ -488,7 +488,7 @@ export default function UserDashboard() {
                           
                           <div className="space-y-1 text-left">
                             <div className="flex items-center gap-2">
-                              <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition">
+                              <h4 className="text-sm font-semibold text-foreground group-hover:text-blue-400 transition">
                                 {act.link.startsWith("/") ? (
                                   <Link href={act.link}>{act.title}</Link>
                                 ) : (
@@ -519,9 +519,9 @@ export default function UserDashboard() {
             <div className="space-y-8">
               
               {/* 4. QUICK ACTIONS CARD */}
-              <section className="rounded-[32px] border border-white/10 bg-card/60 p-8 backdrop-blur-xl space-y-6">
+              <section className="rounded-[32px] border border-border bg-card p-8 shadow-sm space-y-6">
                 <div>
-                  <h3 className="text-xl font-bold text-white">⚡ Quick Actions</h3>
+                  <h3 className="text-xl font-bold text-foreground">⚡ Quick Actions</h3>
                   <p className="text-xs text-muted-foreground mt-1">Direct shortcut paths to main tools.</p>
                 </div>
 
@@ -568,12 +568,12 @@ export default function UserDashboard() {
               </section>
 
               {/* 5. AI SERVICES CARD */}
-              <section className="rounded-[32px] border border-blue-500/20 bg-blue-500/5 p-8 backdrop-blur-xl space-y-6">
+              <section className="rounded-[32px] border border-blue-500/20 bg-blue-500/5 p-8 shadow-sm space-y-6">
                 <div>
-                  <span className="rounded-full bg-blue-500/10 px-2.5 py-1 text-[10px] font-bold text-blue-400 border border-blue-500/20">
+                  <span className="rounded-full bg-blue-500/10 px-2.5 py-1 text-[10px] font-bold text-blue-500 dark:text-blue-400 border border-blue-500/20">
                     AI Workspace
                   </span>
-                  <h3 className="text-xl font-bold text-white mt-3 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-foreground mt-3 flex items-center gap-2">
                     ✨ AI Services
                   </h3>
                   <p className="text-xs text-muted-foreground mt-1">Expose underlying platform models and scoring engines.</p>

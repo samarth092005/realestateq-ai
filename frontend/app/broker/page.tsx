@@ -11,8 +11,10 @@ import { InsightsPanel } from "@/components/dashboard/insights-panel";
 import { calculateInvestmentScore } from "@/utils/investment";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { getUserProfile } from "@/services/auth";
 
 export default function BrokerDashboard() {
+  const [profile, setProfile] = useState<any>(null);
   const [properties, setProperties] = useState<any[]>([]);
   const [listingsCount, setListingsCount] = useState<number | null>(null);
   const [leadsCount, setLeadsCount] = useState<number | null>(null);
@@ -24,6 +26,10 @@ export default function BrokerDashboard() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
+          // 0. Fetch broker's profile for verification status
+          const profileData = await getUserProfile(user.uid);
+          setProfile(profileData);
+
           // 1. Fetch broker's listed properties
           const propertiesList = await getBrokerProperties(user.uid);
           setProperties(propertiesList);
@@ -43,6 +49,7 @@ export default function BrokerDashboard() {
           setLoading(false);
         }
       } else {
+        setProfile(null);
         setProperties([]);
         setListingsCount(0);
         setLeadsCount(0);
@@ -82,6 +89,29 @@ export default function BrokerDashboard() {
     })
     .slice(0, 3);
 
+  const renderVerificationBadge = (status: string) => {
+    switch (status) {
+      case "Verified Broker":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-sm animate-fadeIn">
+            <span className="text-emerald-500 font-bold">✓</span> Verified Broker
+          </span>
+        );
+      case "Pending Verification":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20 shadow-sm animate-pulse">
+            <span>⏳</span> Pending Verification
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-muted border border-border px-3 py-1 text-xs font-semibold text-muted-foreground shadow-sm">
+            🛡️ Unverified
+          </span>
+        );
+    }
+  };
+
   if (loading) {
     return (
       <RoleProtectedRoute allowedRole="broker">
@@ -102,7 +132,10 @@ export default function BrokerDashboard() {
           {/* HEADER */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-4xl font-bold tracking-tight">Broker Console</h2>
+              <div className="flex flex-wrap items-center gap-3">
+                <h2 className="text-4xl font-bold tracking-tight text-foreground">Broker Console</h2>
+                {profile && renderVerificationBadge(profile.verificationStatus || "Unverified")}
+              </div>
               <p className="text-muted-foreground mt-2">
                 Manage listing portfolios, respond to dynamic lead inquiries, and evaluate property investment grades.
               </p>

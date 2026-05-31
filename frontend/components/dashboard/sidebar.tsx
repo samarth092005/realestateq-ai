@@ -33,14 +33,14 @@ export function Sidebar({
         ];
 
   return (
-    <aside className="hidden w-72 border-r border-white/10 bg-card/40 backdrop-blur-xl lg:flex lg:flex-col">
+    <aside className="hidden w-72 border-r border-border bg-card lg:flex lg:flex-col shadow-sm">
 
       {/* LOGO */}
-      <div className="border-b border-white/10 px-8 py-6">
+      <div className="border-b border-border px-8 py-6">
 
         <Link
           href="/"
-          className="text-2xl font-bold tracking-tight text-white hover:opacity-90"
+          className="text-2xl font-bold tracking-tight text-foreground hover:opacity-90"
         >
           RealStateQ AI
         </Link>
@@ -58,8 +58,8 @@ export function Sidebar({
               href={link.href}
               className={`rounded-2xl px-5 py-3 text-left text-sm font-medium transition ${
                 isActive
-                  ? "bg-foreground text-background font-semibold"
-                  : "text-muted-foreground hover:bg-white/10 hover:text-white"
+                  ? "bg-foreground text-background font-semibold shadow-sm"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >
               {link.name}

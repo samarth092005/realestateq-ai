@@ -17,7 +17,10 @@ export default function PropertiesPage() {
     const [search, setSearch] = useState("");
     const [cityFilter, setCityFilter] = useState("");
     const [bhkFilter, setBhkFilter] = useState("");
-    const [priceFilter, setPriceFilter] = useState("");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+    const [minArea, setMinArea] = useState("");
+    const [maxArea, setMaxArea] = useState("");
     const [sortBy, setSortBy] = useState("");
     const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
     const [userId, setUserId] = useState<string | null>(null);
@@ -135,18 +138,19 @@ export default function PropertiesPage() {
             Number(property.bhk) === Number(bhkFilter);
 
         const matchesPrice =
-            priceFilter === "" ||
-            (priceFilter === "low" && property.price < 1000000) ||
-            (priceFilter === "mid" &&
-                property.price >= 1000000 &&
-                property.price <= 5000000) ||
-            (priceFilter === "high" && property.price > 5000000);
+            (minPrice === "" || property.price >= Number(minPrice)) &&
+            (maxPrice === "" || property.price <= Number(maxPrice));
+
+        const matchesArea =
+            (minArea === "" || property.area >= Number(minArea)) &&
+            (maxArea === "" || property.area <= Number(maxArea));
 
         return (
             matchesSearch &&
             matchesCity &&
             matchesBhk &&
-            matchesPrice
+            matchesPrice &&
+            matchesArea
         );
     });
 
@@ -193,26 +197,26 @@ export default function PropertiesPage() {
                 </p>
 
             </div>
-            <div className="mb-10 rounded-[32px] border border-white/10 bg-card/40 p-6 backdrop-blur-xl">
+            <div className="mb-10 rounded-[32px] border border-border bg-card p-6 shadow-sm">
 
                 <input
                     type="text"
                     placeholder="Search property, city or location..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="mb-5 w-full rounded-2xl border border-white/10 bg-background/50 p-4"
+                    className="mb-5 w-full rounded-2xl border border-border bg-background p-4 text-foreground focus:outline-none focus:border-primary/50 transition"
                 />
 
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
 
                     <select
                         value={cityFilter}
                         onChange={(e) => setCityFilter(e.target.value)}
-                        className="rounded-2xl border border-white/10 bg-background/50 p-4"
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30 cursor-pointer"
                     >
-                        <option value="">All Cities</option>
+                        <option value="" className="bg-card text-foreground">All Cities</option>
                         {uniqueCities.map((city) => (
-                            <option key={city} value={city}>
+                            <option key={city} value={city} className="bg-card text-foreground">
                                 {city}
                             </option>
                         ))}
@@ -221,41 +225,77 @@ export default function PropertiesPage() {
                     <select
                         value={bhkFilter}
                         onChange={(e) => setBhkFilter(e.target.value)}
-                        className="rounded-2xl border border-white/10 bg-background/50 p-4"
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30 cursor-pointer"
                     >
-                        <option value="">All BHK</option>
-                        <option value="1">1 BHK</option>
-                        <option value="2">2 BHK</option>
-                        <option value="3">3 BHK</option>
-                        <option value="4">4 BHK</option>
+                        <option value="" className="bg-card text-foreground">All BHK</option>
+                        <option value="1" className="bg-card text-foreground">1 BHK</option>
+                        <option value="2" className="bg-card text-foreground">2 BHK</option>
+                        <option value="3" className="bg-card text-foreground">3 BHK</option>
+                        <option value="4" className="bg-card text-foreground">4 BHK</option>
                     </select>
 
-                    <select
-                        value={priceFilter}
-                        onChange={(e) => setPriceFilter(e.target.value)}
-                        className="rounded-2xl border border-white/10 bg-background/50 p-4"
-                    >
-                        <option value="">Any Budget</option>
-                        <option value="low">Below 10L</option>
-                        <option value="mid">10L - 50L</option>
-                        <option value="high">50L+</option>
-                    </select>
+                    <input
+                        type="number"
+                        placeholder="Min Price (₹)"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30"
+                    />
 
+                    <input
+                        type="number"
+                        placeholder="Max Price (₹)"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30"
+                    />
+
+                    <input
+                        type="number"
+                        placeholder="Min Area (sqft)"
+                        value={minArea}
+                        onChange={(e) => setMinArea(e.target.value)}
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30"
+                    />
+
+                    <input
+                        type="number"
+                        placeholder="Max Area (sqft)"
+                        value={maxArea}
+                        onChange={(e) => setMaxArea(e.target.value)}
+                        className="rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30"
+                    />
+
+                </div>
+
+                <div className="mt-4 flex flex-col sm:flex-row gap-4 justify-between items-center border-t border-border pt-4">
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
-                        className="rounded-2xl border border-white/10 bg-background/50 p-4"
+                        className="w-full sm:w-60 rounded-2xl border border-border bg-background p-4 text-sm text-foreground focus:outline-none focus:border-primary/30 cursor-pointer"
                     >
-                        <option value="">Sort By</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="area-high">Largest Area</option>
-                        <option value="newest">Newest First</option>
-
+                        <option value="" className="bg-card text-foreground">Sort By</option>
+                        <option value="price-low" className="bg-card text-foreground">Price: Low to High</option>
+                        <option value="price-high" className="bg-card text-foreground">Price: High to Low</option>
+                        <option value="area-high" className="bg-card text-foreground">Largest Area</option>
+                        <option value="newest" className="bg-card text-foreground">Newest First</option>
                     </select>
 
-
-
+                    {(minPrice || maxPrice || minArea || maxArea || cityFilter || bhkFilter) && (
+                        <button
+                            onClick={() => {
+                                setMinPrice("");
+                                setMaxPrice("");
+                                setMinArea("");
+                                setMaxArea("");
+                                setCityFilter("");
+                                setBhkFilter("");
+                            }}
+                            className="text-xs font-semibold text-muted-foreground hover:text-foreground transition cursor-pointer flex items-center gap-1 p-2 rounded-xl hover:bg-muted"
+                        >
+                            ✕ Clear All Filters
+                        </button>
+                    )}
                 </div>
 
                 <div className="mb-6 flex items-center justify-between">
@@ -333,18 +373,18 @@ export default function PropertiesPage() {
 
                             <div className="mt-4 flex flex-wrap gap-3">
 
-                                <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                                <span className="rounded-full border border-border px-4 py-2 text-sm text-foreground">
                                     {property.bhk} BHK
                                 </span>
 
-                                <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                                <span className="rounded-full border border-border px-4 py-2 text-sm text-foreground">
                                     {property.area} sqft
                                 </span>
 
-                                <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                                <span className="rounded-full border border-border px-4 py-2 text-sm text-foreground">
                                     Residential
                                 </span>
-                                <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                                <span className="rounded-full border border-border px-4 py-2 text-sm text-foreground">
                                     Ready To Move
                                 </span>
 
@@ -352,7 +392,7 @@ export default function PropertiesPage() {
 
                             <div className="mt-5 flex items-center gap-3">
 
-                                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-400">
+                                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-600 dark:text-emerald-400">
                                     ⭐ Score {investmentScore}
                                 </span>
 
@@ -365,7 +405,7 @@ export default function PropertiesPage() {
 
                              <div className="mt-auto pt-6 flex items-center justify-between">
 
-                                <span className="font-medium">
+                                <span className="font-medium text-foreground">
                                     View Details →
                                 </span>
 
@@ -373,8 +413,8 @@ export default function PropertiesPage() {
                                     onClick={(e) => handleCompareToggle(e, property)}
                                     className={`rounded-xl px-4 py-2 text-xs font-semibold border transition ${
                                         isCompared(property.id)
-                                            ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/35"
-                                            : "bg-white/5 text-white border-white/10 hover:bg-white/10"
+                                            ? "bg-blue-500/20 text-blue-600 dark:text-blue-400 border-blue-500/30 hover:bg-blue-500/35"
+                                            : "bg-background text-foreground border-border hover:bg-muted"
                                     }`}
                                 >
                                     {isCompared(property.id) ? "Selected" : "Compare"}

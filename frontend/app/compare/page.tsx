@@ -104,7 +104,7 @@ export default function ComparePage() {
           {/* Page Header */}
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>
-              <h1 className="text-4xl font-bold tracking-tight text-white">Compare Properties</h1>
+              <h1 className="text-4xl font-bold tracking-tight text-foreground">Compare Properties</h1>
               <p className="mt-2 text-base text-muted-foreground">
                 Compare investment potential, pricing, and property metrics side-by-side.
               </p>
@@ -112,7 +112,7 @@ export default function ComparePage() {
             {selectedProperties.length > 0 && (
               <button
                 onClick={clearCompare}
-                className="self-start rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white/10"
+                className="self-start rounded-2xl border border-border bg-background px-5 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted shadow-sm cursor-pointer"
               >
                 Clear Comparison
               </button>
@@ -121,11 +121,11 @@ export default function ComparePage() {
 
           {/* Empty / Single State */}
           {!hasTwoProperties ? (
-            <div className="rounded-[32px] border border-white/10 bg-card/40 p-10 text-center backdrop-blur-xl sm:p-20">
+            <div className="rounded-[32px] border border-border bg-card p-10 text-center shadow-sm sm:p-20">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-500/10 text-3xl">
                 📊
               </div>
-              <h3 className="text-2xl font-bold text-white">Compare Side-by-Side</h3>
+              <h3 className="text-2xl font-bold text-foreground">Compare Side-by-Side</h3>
               
               {selectedProperties.length === 1 ? (
                 <div className="mx-auto mt-4 max-w-md">
@@ -134,7 +134,7 @@ export default function ComparePage() {
                   </p>
                   
                   {/* Current single property preview */}
-                  <div className="mt-6 flex items-center gap-4 rounded-2xl border border-white/15 bg-white/5 p-4 text-left">
+                  <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border bg-background p-4 text-left shadow-sm">
                     <img
                       src={
                         selectedProperties[0].imageUrl?.startsWith("http")
@@ -145,7 +145,7 @@ export default function ComparePage() {
                       className="h-14 w-14 rounded-lg object-cover"
                     />
                     <div className="min-w-0 flex-1">
-                      <h4 className="truncate text-sm font-bold text-white">
+                      <h4 className="truncate text-sm font-bold text-foreground">
                         {selectedProperties[0].title}
                       </h4>
                       <p className="text-xs text-muted-foreground">
@@ -154,7 +154,7 @@ export default function ComparePage() {
                     </div>
                     <button
                       onClick={() => removeFromCompare(selectedProperties[0].id)}
-                      className="rounded-xl bg-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-500 hover:text-white transition"
+                      className="rounded-xl bg-muted border border-border px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-red-500 hover:text-white transition cursor-pointer"
                     >
                       Remove
                     </button>
@@ -169,13 +169,13 @@ export default function ComparePage() {
               <div className="mt-8 flex justify-center gap-4">
                 <Link
                   href="/properties"
-                  className="rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:opacity-90 active:scale-95"
+                  className="rounded-2xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 active:scale-95 shadow animate-fadeIn"
                 >
                   Browse Properties
                 </Link>
                 <Link
                   href="/saved-properties"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10 active:scale-95"
+                  className="rounded-2xl border border-border bg-background px-6 py-3.5 text-sm font-semibold text-foreground transition hover:bg-muted active:scale-95 shadow-sm"
                 >
                   Saved List
                 </Link>
@@ -186,21 +186,21 @@ export default function ComparePage() {
             <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
               
               {/* Left Side: Comparison Matrix */}
-              <div className="overflow-hidden rounded-[32px] border border-white/10 bg-card/40 backdrop-blur-xl">
+              <div className="overflow-hidden rounded-[32px] border border-border bg-card shadow-sm">
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse text-left">
                     <thead>
-                      <tr className="border-b border-white/10 bg-white/5">
+                      <tr className="border-b border-border bg-muted/30">
                         <th className="p-6 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                           Specification
                         </th>
                         {propertiesWithMetrics.map((property) => (
                           <th
                             key={property.id}
-                            className="p-6 text-sm font-bold text-white max-w-[250px] sm:max-w-[300px]"
+                            className="p-6 text-sm font-bold text-foreground max-w-[250px] sm:max-w-[300px]"
                           >
                             <div className="flex flex-col gap-3">
-                              <div className="group relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10">
+                              <div className="group relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border bg-background">
                                 <img
                                   src={
                                     property.imageUrl?.startsWith("http")
@@ -212,13 +212,13 @@ export default function ComparePage() {
                                 />
                                 <button
                                   onClick={() => removeFromCompare(property.id)}
-                                  className="absolute right-3 top-3 rounded-full bg-black/60 p-2 text-xs font-bold text-white hover:bg-red-500 hover:text-white transition"
+                                  className="absolute right-3 top-3 rounded-full bg-black/60 p-2 text-xs font-bold text-white hover:bg-red-500 hover:text-white transition cursor-pointer"
                                   title="Remove from Compare"
                                 >
                                   ✕
                                 </button>
                               </div>
-                              <span className="truncate text-base font-bold sm:text-lg">
+                              <span className="truncate text-base font-bold sm:text-lg text-foreground">
                                 {property.title}
                               </span>
                             </div>
@@ -226,13 +226,13 @@ export default function ComparePage() {
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5">
+                    <tbody className="divide-y divide-border">
                       
                       {/* Price */}
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">Price</td>
                         {propertiesWithMetrics.map((p) => (
-                          <td key={p.id} className="p-6 text-lg font-bold text-white">
+                          <td key={p.id} className="p-6 text-lg font-bold text-foreground">
                             ₹ {p.price?.toLocaleString()}
                           </td>
                         ))}
@@ -242,7 +242,7 @@ export default function ComparePage() {
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">City</td>
                         {propertiesWithMetrics.map((p) => (
-                          <td key={p.id} className="p-6 text-sm text-white font-medium">
+                          <td key={p.id} className="p-6 text-sm text-foreground font-medium">
                             {p.city}
                           </td>
                         ))}
@@ -252,7 +252,7 @@ export default function ComparePage() {
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">Location</td>
                         {propertiesWithMetrics.map((p) => (
-                          <td key={p.id} className="p-6 text-sm text-muted-foreground">
+                          <td key={p.id} className="p-6 text-sm text-muted-foreground font-medium">
                             {p.location}
                           </td>
                         ))}
@@ -262,7 +262,7 @@ export default function ComparePage() {
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">BHK Configuration</td>
                         {propertiesWithMetrics.map((p) => (
-                          <td key={p.id} className="p-6 text-sm text-white font-medium">
+                          <td key={p.id} className="p-6 text-sm text-foreground font-medium">
                             {p.bhk} BHK
                           </td>
                         ))}
@@ -272,7 +272,7 @@ export default function ComparePage() {
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">Total Area</td>
                         {propertiesWithMetrics.map((p) => (
-                          <td key={p.id} className="p-6 text-sm text-white font-medium">
+                          <td key={p.id} className="p-6 text-sm text-foreground font-medium">
                             {p.area} sqft
                           </td>
                         ))}
@@ -283,7 +283,7 @@ export default function ComparePage() {
                         <td className="p-6 text-sm font-semibold text-muted-foreground">AI Score</td>
                         {propertiesWithMetrics.map((p) => (
                           <td key={p.id} className="p-6">
-                            <span className="inline-flex rounded-full bg-emerald-500/10 px-3 py-1.5 text-sm font-bold text-emerald-400">
+                            <span className="inline-flex rounded-full bg-emerald-500/10 px-3 py-1.5 text-sm font-bold text-emerald-600 dark:text-emerald-400">
                               ⭐ {p.metrics.investmentScore} / 10
                             </span>
                           </td>
@@ -298,8 +298,8 @@ export default function ComparePage() {
                             <span
                               className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                                 p.metrics.growthPotential === "High"
-                                  ? "bg-blue-500/10 text-blue-400"
-                                  : "bg-orange-500/10 text-orange-400"
+                                  ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                                  : "bg-orange-500/10 text-orange-600 dark:text-orange-400"
                               }`}
                             >
                               {p.metrics.growthPotential}
@@ -316,10 +316,10 @@ export default function ComparePage() {
                             <span
                               className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                                 p.metrics.rentalPotential === "High"
-                                  ? "bg-emerald-500/10 text-emerald-400"
+                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                                   : p.metrics.rentalPotential === "Medium"
-                                  ? "bg-blue-500/10 text-blue-400"
-                                  : "bg-white/10 text-white/50"
+                                  ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                                  : "bg-muted text-muted-foreground"
                               }`}
                             >
                               {p.metrics.rentalPotential}
@@ -336,10 +336,10 @@ export default function ComparePage() {
                             <span
                               className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                                 p.metrics.riskLevel === "Low Risk"
-                                  ? "bg-emerald-500/10 text-emerald-400"
+                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                                   : p.metrics.riskLevel === "Medium Risk"
-                                  ? "bg-yellow-500/10 text-yellow-400"
-                                  : "bg-red-500/10 text-red-400"
+                                  ? "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400"
+                                  : "bg-red-500/10 text-red-600 dark:text-red-400"
                               }`}
                             >
                               {p.metrics.riskLevel}
@@ -348,18 +348,18 @@ export default function ComparePage() {
                         ))}
                       </tr>
 
-                      {/* Recommendation */}
+                      {/* AI Recommendation */}
                       <tr>
                         <td className="p-6 text-sm font-semibold text-muted-foreground">AI Recommendation</td>
                         {propertiesWithMetrics.map((p) => (
                           <td key={p.id} className="p-6">
                             <span
-                              className={`inline-flex rounded-full px-3.5 py-1.5 text-xs font-bold ${
+                              className={`inline-flex rounded-full px-3.5 py-1.5 text-xs font-bold border ${
                                 p.metrics.recommendation === "Strong Buy"
-                                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                  ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
                                   : p.metrics.recommendation === "Good Opportunity"
-                                  ? "bg-blue-500/20 text-blue-400 border border-blue-500/30"
-                                  : "bg-white/10 text-white/60"
+                                  ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20"
+                                  : "bg-muted text-muted-foreground border-border"
                               }`}
                             >
                               {p.metrics.recommendation}
@@ -376,13 +376,13 @@ export default function ComparePage() {
                             <div className="flex flex-col gap-2.5 sm:flex-row">
                               <Link
                                 href={`/property/${p.id}`}
-                                className="inline-flex justify-center rounded-xl bg-white px-4 py-2.5 text-xs font-semibold text-black hover:opacity-90 transition"
+                                className="inline-flex justify-center rounded-xl bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground hover:opacity-90 transition shadow-sm"
                               >
                                 View Details
                               </Link>
                               <button
                                 onClick={() => removeFromCompare(p.id)}
-                                className="inline-flex justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-semibold text-white hover:bg-red-500 hover:text-white transition"
+                                className="inline-flex justify-center rounded-xl border border-border bg-background px-4 py-2.5 text-xs font-semibold text-foreground hover:bg-red-500 hover:text-white transition cursor-pointer shadow-sm"
                               >
                                 Remove
                               </button>
@@ -401,16 +401,16 @@ export default function ComparePage() {
                 
                 {/* Winner Card */}
                 {recommendedProperty && (
-                  <div className="rounded-[32px] border border-blue-500/20 bg-blue-500/10 p-8 shadow-xl">
-                    <p className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  <div className="rounded-[32px] border border-blue-500/20 bg-blue-500/10 p-8 shadow-md">
+                    <p className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                       Intelligence Report
                     </p>
-                    <h3 className="mt-3 text-2xl font-extrabold text-white">
+                    <h3 className="mt-3 text-2xl font-extrabold text-foreground">
                       Best Investment Choice
                     </h3>
 
                     <div className="mt-6 space-y-4">
-                      <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-4 border border-white/5">
+                      <div className="flex items-center gap-4 rounded-2xl bg-background p-4 border border-border shadow-sm">
                         <img
                           src={
                             recommendedProperty.imageUrl?.startsWith("http")
@@ -421,10 +421,10 @@ export default function ComparePage() {
                           className="h-14 w-14 rounded-lg object-cover"
                         />
                         <div className="min-w-0 flex-1">
-                          <p className="text-[10px] font-bold uppercase text-blue-400">
+                          <p className="text-[10px] font-bold uppercase text-blue-600 dark:text-blue-400">
                             🏆 Recommended Property
                           </p>
-                          <h4 className="truncate text-sm font-bold text-white mt-1">
+                          <h4 className="truncate text-sm font-bold text-foreground mt-1">
                             {recommendedProperty.title}
                           </h4>
                           <p className="text-xs text-muted-foreground mt-0.5">
@@ -434,13 +434,13 @@ export default function ComparePage() {
                       </div>
 
                       <div className="pt-4">
-                        <p className="text-sm font-bold text-white mb-3">
+                        <p className="text-sm font-bold text-foreground mb-3">
                           Why this property stands out:
                         </p>
                         <ul className="space-y-3">
                           {reasonDetails.map((reason, idx) => (
                             <li key={idx} className="flex items-start gap-2.5 text-xs text-muted-foreground">
-                              <span className="text-emerald-400 font-bold shrink-0">✓</span>
+                              <span className="text-emerald-500 dark:text-emerald-400 font-bold shrink-0">✓</span>
                               <span>{reason}</span>
                             </li>
                           ))}
@@ -451,12 +451,12 @@ export default function ComparePage() {
                 )}
 
                 {/* Info Card */}
-                <div className="rounded-[32px] border border-white/10 bg-card/30 p-8 backdrop-blur-sm">
-                  <h4 className="text-base font-bold text-white">How we analyze properties</h4>
+                <div className="rounded-[32px] border border-border bg-card p-8 shadow-sm">
+                  <h4 className="text-base font-bold text-foreground">How we analyze properties</h4>
                   <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
                     Our platform computes intelligence rankings dynamically. Scores are weighted heavily based on high-demand metro regions (Mumbai, Bangalore, Pune), layout spacing efficiency, rental return expectations, and target risk factors.
                   </p>
-                  <div className="mt-5 space-y-2 border-t border-white/5 pt-5 text-[11px] text-muted-foreground">
+                  <div className="mt-5 space-y-2 border-t border-border pt-5 text-[11px] text-muted-foreground">
                     <p>• **High Demand**: Cities with proven real-estate compounding indicators receive boost multipliers.</p>
                     <p>• **Rental Thresholds**: Space size above 800 and 1200 sqft mark rental demand triggers.</p>
                     <p>• **Risk Management**: Strong score thresholds correlate directly to solid investment reliability.</p>

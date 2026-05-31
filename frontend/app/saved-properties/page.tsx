@@ -81,7 +81,7 @@ export default function SavedPropertiesPage() {
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-foreground border-t-transparent"></div>
             </div>
           ) : properties.length === 0 ? (
-            <div className="rounded-[32px] border border-white/10 bg-card/20 py-20 text-center backdrop-blur-xl">
+            <div className="rounded-[32px] border border-border bg-card/40 py-20 text-center backdrop-blur-xl">
               <div className="text-5xl mb-4">❤️</div>
               <h3 className="text-2xl font-bold">No saved properties yet</h3>
               <p className="text-muted-foreground mt-2 max-w-sm mx-auto text-sm">
@@ -89,7 +89,7 @@ export default function SavedPropertiesPage() {
               </p>
               <Link
                 href="/properties"
-                className="mt-6 inline-flex rounded-2xl bg-foreground px-6 py-3 text-sm font-semibold text-background transition hover:opacity-90"
+                className="mt-6 inline-flex rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Browse Properties
               </Link>
@@ -104,10 +104,10 @@ export default function SavedPropertiesPage() {
                   <Link
                     key={property.id}
                     href={`/property/${property.id}`}
-                    className="group flex overflow-hidden rounded-[32px] border border-white/10 bg-card/60 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/20"
+                    className="group flex flex-col md:flex-row overflow-hidden rounded-[32px] border border-border bg-card/60 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5"
                   >
                     {/* IMAGE */}
-                    <div className="h-[260px] w-[400px] shrink-0 relative">
+                    <div className="h-[260px] w-full md:w-[400px] shrink-0 relative">
                       <img
                         src={
                           property.imageUrl?.startsWith("http")
@@ -119,7 +119,7 @@ export default function SavedPropertiesPage() {
                       />
                       <button
                         onClick={(e) => handleUnsave(e, property.id)}
-                        className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full bg-black/40 border border-white/10 hover:bg-black/60 transition"
+                        className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full bg-black/40 border border-white/20 hover:bg-black/60 transition"
                         title="Remove from Saved"
                       >
                         <span className="text-rose-500 text-lg">❤️</span>
@@ -136,29 +136,29 @@ export default function SavedPropertiesPage() {
                         📍 {property.location}, {property.city}
                       </p>
 
-                      <p className="mt-5 text-3xl font-bold">
+                      <p className="mt-5 text-3xl font-bold text-foreground">
                         ₹ {property.price?.toLocaleString()}
                       </p>
 
                       <div className="mt-4 flex flex-wrap gap-3">
-                        <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                        <span className="rounded-full border border-border bg-muted/30 px-4 py-2 text-sm text-foreground">
                           {property.bhk} BHK
                         </span>
 
-                        <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                        <span className="rounded-full border border-border bg-muted/30 px-4 py-2 text-sm text-foreground">
                           {property.area} sqft
                         </span>
 
-                        <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                        <span className="rounded-full border border-border bg-muted/30 px-4 py-2 text-sm text-foreground">
                           Residential
                         </span>
-                        <span className="rounded-full border border-white/10 px-4 py-2 text-sm">
+                        <span className="rounded-full border border-border bg-muted/30 px-4 py-2 text-sm text-foreground">
                           Ready To Move
                         </span>
                       </div>
 
                       <div className="mt-5 flex items-center gap-3">
-                        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-400">
+                        <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                           ⭐ Score {investmentScore}
                         </span>
 
@@ -168,15 +168,15 @@ export default function SavedPropertiesPage() {
                       </div>
 
                       <div className="mt-auto pt-6 flex items-center justify-between">
-                        <span className="font-medium">
+                        <span className="font-medium text-primary hover:underline">
                           View Details & Insights →
                         </span>
                         <button
                           onClick={(e) => handleCompareToggle(e, property)}
                           className={`rounded-xl px-4 py-2 text-xs font-semibold border transition ${
                             isCompared(property.id)
-                              ? "bg-blue-500/20 text-blue-400 border-blue-500/30 hover:bg-blue-500/35"
-                              : "bg-white/5 text-white border-white/10 hover:bg-white/10"
+                              ? "bg-primary text-white border-primary hover:bg-primary/90"
+                              : "bg-muted/50 text-foreground border-border hover:bg-muted"
                           }`}
                         >
                           {isCompared(property.id) ? "Selected" : "Compare"}

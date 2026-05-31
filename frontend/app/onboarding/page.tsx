@@ -75,12 +75,12 @@ export default function OnboardingPage() {
 
   return (
     <main className="flex min-h-screen bg-background text-foreground items-center justify-center px-6">
-      <div className="relative overflow-hidden w-full max-w-md rounded-[32px] border border-white/10 bg-card/80 p-8 backdrop-blur-sm shadow-2xl">
+      <div className="relative overflow-hidden w-full max-w-md rounded-[32px] border border-border bg-card/80 p-8 backdrop-blur-sm shadow-2xl">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-500/10 blur-[100px]" />
         
         <div className="relative z-10 text-center space-y-6">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white">Choose Your Role</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-foreground">Choose Your Role</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               To get started, please tell us how you plan to use RealStateQ AI.
             </p>
@@ -92,11 +92,11 @@ export default function OnboardingPage() {
               onClick={() => setRole("user")}
               className={`flex flex-col text-left p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
                 role === "user"
-                  ? "bg-white/5 text-white border-white/30 shadow-lg shadow-black/20"
-                  : "bg-background/40 text-muted-foreground border-white/5 hover:border-white/15"
+                  ? "bg-primary/5 text-primary border-primary shadow-lg shadow-primary/5"
+                  : "bg-muted/40 text-muted-foreground border-border hover:border-muted-foreground/30"
               }`}
             >
-              <span className="text-lg font-bold text-white flex items-center gap-2">
+              <span className={`text-lg font-bold flex items-center gap-2 ${role === "user" ? "text-primary" : "text-foreground"}`}>
                 Investor / Homebuyer 🔑
               </span>
               <span className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -109,11 +109,11 @@ export default function OnboardingPage() {
               onClick={() => setRole("broker")}
               className={`flex flex-col text-left p-5 rounded-2xl border transition-all duration-300 cursor-pointer ${
                 role === "broker"
-                  ? "bg-white/5 text-white border-white/30 shadow-lg shadow-black/20"
-                  : "bg-background/40 text-muted-foreground border-white/5 hover:border-white/15"
+                  ? "bg-primary/5 text-primary border-primary shadow-lg shadow-primary/5"
+                  : "bg-muted/40 text-muted-foreground border-border hover:border-muted-foreground/30"
               }`}
             >
-              <span className="text-lg font-bold text-white flex items-center gap-2">
+              <span className={`text-lg font-bold flex items-center gap-2 ${role === "broker" ? "text-primary" : "text-foreground"}`}>
                 Licensed Broker Partner 🏢
               </span>
               <span className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
           <button
             disabled={saving}
             onClick={handleSelectRole}
-            className="w-full rounded-2xl bg-foreground py-4 font-bold text-background transition hover:opacity-90 active:scale-95 disabled:opacity-50 shadow-xl cursor-pointer"
+            className="w-full rounded-2xl bg-primary py-4 font-bold text-white transition hover:bg-primary/90 active:scale-95 disabled:opacity-50 shadow-xl cursor-pointer"
           >
             {saving ? "Configuring Account..." : "Continue to Dashboard →"}
           </button>

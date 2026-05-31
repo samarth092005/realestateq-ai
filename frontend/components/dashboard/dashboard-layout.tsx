@@ -67,19 +67,19 @@ export function DashboardLayout({
           />
 
           {/* Sliding Menu Shell */}
-          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-card border-r border-white/10 p-6 shadow-2xl transition duration-300 animate-in slide-in-from-left">
+          <div className="relative flex w-full max-w-xs flex-1 flex-col bg-card border-r border-border p-6 shadow-2xl transition duration-300 animate-in slide-in-from-left">
             {/* Header Area */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/10">
+            <div className="flex items-center justify-between pb-6 border-b border-border">
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-2xl font-bold tracking-tight text-white hover:opacity-90"
+                className="text-2xl font-bold tracking-tight text-foreground hover:opacity-90"
               >
                 RealStateQ AI
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="rounded-xl border border-white/10 bg-background/50 p-2 text-white hover:bg-white/10 transition"
+                className="rounded-xl border border-border bg-background p-2 text-foreground hover:bg-muted transition"
                 aria-label="Close navigation menu"
               >
                 <X className="h-5 w-5" />
@@ -98,7 +98,7 @@ export function DashboardLayout({
                     className={`rounded-2xl px-5 py-3 text-left text-sm font-medium transition ${
                       isActive
                         ? "bg-foreground text-background font-semibold"
-                        : "text-muted-foreground hover:bg-white/10 hover:text-white"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                   >
                     {link.name}
@@ -108,7 +108,7 @@ export function DashboardLayout({
             </nav>
 
             {/* Logout anchor in drawer */}
-            <div className="pt-6 border-t border-white/10">
+            <div className="pt-6 border-t border-border">
               <button
                 onClick={handleLogout}
                 className="w-full rounded-2xl bg-red-500 py-3.5 text-sm font-semibold text-white hover:opacity-90 transition active:scale-98"

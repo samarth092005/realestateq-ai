@@ -92,7 +92,7 @@ export function AICapabilities() {
                   {cap.icon}
                 </div>
                 {cap.badge && (
-                  <span className="rounded-md bg-white/[0.04] border border-white/5 px-2 py-0.5 text-[9px] font-bold text-muted-foreground group-hover:text-white transition">
+                  <span className="rounded-md bg-white/4 border border-white/5 px-2 py-0.5 text-[9px] font-bold text-muted-foreground group-hover:text-white transition">
                     {cap.badge}
                   </span>
                 )}

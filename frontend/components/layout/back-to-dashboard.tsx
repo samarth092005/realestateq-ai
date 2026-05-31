@@ -38,7 +38,7 @@ export function BackToDashboard() {
     <div className="mb-6 flex items-center">
       <Link
         href={dashboardHref}
-        className="group inline-flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.03] px-4 py-2 text-xs font-semibold text-muted-foreground backdrop-blur-md transition-all duration-300 hover:border-white/10 hover:bg-white/[0.08] hover:text-white hover:shadow-lg hover:shadow-black/20 active:scale-95"
+        className="group inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-xs font-semibold text-muted-foreground transition-all duration-300 hover:border-primary/20 hover:bg-muted hover:text-primary hover:shadow-md hover:shadow-primary/5 active:scale-95"
       >
         <span className="text-sm transition-transform duration-300 group-hover:-translate-x-1">
           ←

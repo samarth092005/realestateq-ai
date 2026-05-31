@@ -33,6 +33,47 @@ export default function PropertyDetailsPage() {
   
   const [cityConfig, setCityConfig] = useState<Record<string, CityIntelligence> | undefined>(undefined);
 
+  // Broker verification states
+  const [brokerProfile, setBrokerProfile] = useState<any>(null);
+
+  useEffect(() => {
+    if (!property?.brokerId) return;
+
+    const fetchBroker = async () => {
+      try {
+        const profileData = await getUserProfile(property.brokerId);
+        setBrokerProfile(profileData);
+      } catch (e) {
+        console.error("Failed to load broker profile for details page:", e);
+      }
+    };
+
+    fetchBroker();
+  }, [property?.brokerId]);
+
+  const renderVerificationBadge = (status: string) => {
+    switch (status) {
+      case "Verified Broker":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
+            <span className="text-emerald-500 font-bold">✓</span> Verified
+          </span>
+        );
+      case "Pending Verification":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20 shadow-sm animate-pulse">
+            <span>⏳</span> Pending
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-muted border border-border px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground shadow-sm">
+            🛡️ Unverified
+          </span>
+        );
+    }
+  };
+
   useEffect(() => {
     const fetchCityConfig = async () => {
       try {
@@ -430,9 +471,56 @@ export default function PropertyDetailsPage() {
 
         </div>
 
-        <div className="rounded-[32px] border border-white/10 bg-card/40 p-8">
+        {/* BROKER DETAILS CARD */}
+        {brokerProfile && (
+          <div className="rounded-[32px] border border-border bg-card p-8 space-y-4 shadow-sm animate-fadeIn">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-foreground">Listing Broker</h3>
+              {renderVerificationBadge(brokerProfile.verificationStatus || "Unverified")}
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-500 to-blue-400 text-lg font-bold text-black overflow-hidden shadow-sm">
+                {brokerProfile.photoURL ? (
+                  <img src={brokerProfile.photoURL} alt={brokerProfile.name} className="h-full w-full object-cover" />
+                ) : (
+                  brokerProfile.name?.[0]?.toUpperCase() || "B"
+                )}
+              </div>
+              <div className="space-y-0.5">
+                <h4 className="font-bold text-foreground text-sm">{brokerProfile.name}</h4>
+                <p className="text-xs text-muted-foreground">{brokerProfile.email}</p>
+              </div>
+            </div>
 
-          <h3 className="text-xl font-semibold">
+            {brokerProfile.brokerBio && (
+              <p className="text-xs text-muted-foreground/85 italic line-clamp-2 leading-relaxed border-t border-border pt-3 mt-2">
+                "{brokerProfile.brokerBio}"
+              </p>
+            )}
+
+            {(brokerProfile.licenseNumber || brokerProfile.agencyRegistration) && (
+              <div className="text-xs text-muted-foreground bg-background/50 p-3 rounded-xl border border-border space-y-1 mt-3">
+                {brokerProfile.licenseNumber && (
+                  <div className="flex justify-between">
+                    <span>License:</span>
+                    <span className="font-mono text-foreground font-semibold">{brokerProfile.licenseNumber}</span>
+                  </div>
+                )}
+                {brokerProfile.agencyRegistration && (
+                  <div className="flex justify-between">
+                    <span>Agency Reg:</span>
+                    <span className="font-mono text-foreground font-semibold">{brokerProfile.agencyRegistration}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="rounded-[32px] border border-border bg-card p-8">
+
+          <h3 className="text-xl font-semibold text-foreground">
             Contact Broker
           </h3>
           <p className="mt-3 text-sm text-muted-foreground">
@@ -442,7 +530,7 @@ export default function PropertyDetailsPage() {
 
           <button
             onClick={handleContactBrokerClick}
-            className="mt-6 w-full rounded-2xl bg-foreground py-3 text-background font-semibold hover:opacity-90 active:scale-[0.98] transition cursor-pointer"
+            className="mt-6 w-full rounded-2xl bg-primary text-primary-foreground py-3 font-semibold hover:opacity-90 active:scale-[0.98] transition cursor-pointer shadow-sm"
           >
             Contact Now
           </button>

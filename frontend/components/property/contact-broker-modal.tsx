@@ -33,13 +33,13 @@ export function ContactBrokerModal({
 }: ContactBrokerModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-lg rounded-[32px] border border-white/10 bg-card/60 backdrop-blur-xl p-8 text-white shadow-2xl transition-all duration-300">
+      <DialogContent className="sm:max-w-lg rounded-[32px] border border-border bg-card p-8 text-foreground shadow-2xl transition-all duration-300">
         <DialogHeader className="space-y-2">
-          <DialogTitle className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+          <DialogTitle className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
             <span>📩</span> Contact Broker
           </DialogTitle>
           <DialogDescription className="text-muted-foreground text-sm">
-            Send an inquiry for <span className="text-blue-400 font-semibold">{props.propertyTitle}</span>. The broker will respond to you shortly.
+            Send an inquiry for <span className="text-primary font-semibold">{props.propertyTitle}</span>. The broker will respond to you shortly.
           </DialogDescription>
         </DialogHeader>
 
@@ -158,12 +158,12 @@ function ContactBrokerForm({
             setName(e.target.value);
             if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
           }}
-          className={`h-11 rounded-xl border bg-background/20 px-4 py-2 text-sm outline-none transition focus:border-white/20 text-white placeholder:text-muted-foreground/60 ${
-            errors.name ? "border-red-500/50 focus:border-red-500/80" : "border-white/10"
+          className={`h-11 rounded-xl border bg-background px-4 py-2 text-sm text-foreground outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/60 ${
+            errors.name ? "border-red-500/50 focus:border-red-500/80" : "border-border"
           }`}
         />
         {errors.name && (
-          <p className="text-xs text-red-400 font-medium px-1 mt-1">{errors.name}</p>
+          <p className="text-xs text-red-500 font-medium px-1 mt-1">{errors.name}</p>
         )}
       </div>
 
@@ -180,12 +180,12 @@ function ContactBrokerForm({
             setEmail(e.target.value);
             if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
           }}
-          className={`h-11 rounded-xl border bg-background/20 px-4 py-2 text-sm outline-none transition focus:border-white/20 text-white placeholder:text-muted-foreground/60 ${
-            errors.email ? "border-red-500/50 focus:border-red-500/80" : "border-white/10"
+          className={`h-11 rounded-xl border bg-background px-4 py-2 text-sm text-foreground outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/60 ${
+            errors.email ? "border-red-500/50 focus:border-red-500/80" : "border-border"
           }`}
         />
         {errors.email && (
-          <p className="text-xs text-red-400 font-medium px-1 mt-1">{errors.email}</p>
+          <p className="text-xs text-red-500 font-medium px-1 mt-1">{errors.email}</p>
         )}
       </div>
 
@@ -202,12 +202,12 @@ function ContactBrokerForm({
             if (errors.message) setErrors((prev) => ({ ...prev, message: undefined }));
           }}
           rows={4}
-          className={`min-h-[120px] rounded-xl border bg-background/20 px-4 py-3 text-sm outline-none transition focus:border-white/20 text-white placeholder:text-muted-foreground/60 ${
-            errors.message ? "border-red-500/50 focus:border-red-500/80" : "border-white/10"
+          className={`min-h-[120px] rounded-xl border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/60 ${
+            errors.message ? "border-red-500/50 focus:border-red-500/80" : "border-border"
           }`}
         />
         {errors.message && (
-          <p className="text-xs text-red-400 font-medium px-1 mt-1">{errors.message}</p>
+          <p className="text-xs text-red-500 font-medium px-1 mt-1">{errors.message}</p>
         )}
       </div>
 
@@ -218,18 +218,18 @@ function ContactBrokerForm({
           variant="outline"
           onClick={onClose}
           disabled={isSubmitting}
-          className="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition px-5 text-sm h-11"
+          className="rounded-xl border border-border bg-muted/50 hover:bg-muted text-foreground transition px-5 text-sm h-11 cursor-pointer"
         >
           Cancel
         </Button>
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition px-6 text-sm h-11 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+          className="rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold transition px-6 text-sm h-11 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-md shadow-primary/10"
         >
           {isSubmitting ? (
             <>
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent"></span>
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
               Sending...
             </>
           ) : (
