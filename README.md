@@ -213,9 +213,6 @@ Samarth Agarwal
 
 Aspiring AI Engineer | Data Science & Machine Learning Enthusiast
 
-LinkedIn:
-(Add LinkedIn URL)
-
 GitHub:
 https://github.com/samarth092005/realestateq-ai
 
