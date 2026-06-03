@@ -162,7 +162,7 @@ Prediction Response
 
 ### Compare Properties
 
-<img width="1881" height="811" alt="3" src="https://github.com/user-attachments/assets/f736dde0-ca46-49eb-b69d-b4afe39ea23f" />
+<img width="1888" height="822" alt="4" src="https://github.com/user-attachments/assets/2941a5bc-50cc-4f1a-a8c0-bec6526c3c72" />
 
 
 ### AI Property Prediction
